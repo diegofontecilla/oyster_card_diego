@@ -1,7 +1,28 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/anguspettifer/Projects/Makers/week_2_projects/oyster_cards/spec/oyster_card_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/anguspettifer/Projects/Makers/week_2_projects/oyster_cards/lib/oyster_card.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null
+      ]
     },
-    "timestamp": 1526912871
+    "timestamp": 1526916289
   }
 }
