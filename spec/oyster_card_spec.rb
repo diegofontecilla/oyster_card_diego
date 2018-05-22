@@ -14,7 +14,6 @@ describe OysterCard do
     expect(subject.balance).to eq 0
   end
 
-
   context '#top_up' do
 
     it 'tops up card' do
@@ -26,14 +25,6 @@ describe OysterCard do
       subject.top_up(OysterCard::DEFAULT_MAX_LIMIT)
       message = "Failed: exceeded max balance #{OysterCard::DEFAULT_MAX_LIMIT}"
       expect { subject.top_up(1) } .to raise_error message
-    end
-  end
-
-  describe '#deduct' do
-
-    it 'amount on card' do
-      subject.top_up(30)
-      expect{ subject.deduct 3 }.to change{ subject.balance }.by -3
     end
   end
 
@@ -57,5 +48,11 @@ describe OysterCard do
     subject.touch_in
     subject.touch_out
     expect(subject).not_to be_in_journey
+  end
+
+  it 'charges minimum amount when touch out' do
+    subject.top_up(OysterCard::MINIMUM_AMOUNT)
+    subject.touch_in
+    expect{ subject.touch_out }.to change{ subject.balance }.by(-OysterCard::MINIMUM_AMOUNT)
   end
 end
