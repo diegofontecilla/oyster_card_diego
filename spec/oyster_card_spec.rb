@@ -42,11 +42,18 @@ describe OysterCard do
   end
 
   it 'can touch in' do
+    subject.top_up(OysterCard::MINIMUM_AMOUNT)
     subject.touch_in
     expect(subject).to be_in_journey
   end
 
+  it 'raise error if touch in with less than minimum amount' do
+    message = "Cannot touch in, less than #{OysterCard::MINIMUM_AMOUNT} pound on card"
+    expect { subject.touch_in }.to raise_error message
+  end
+
   it 'can touch out' do
+    subject.top_up(OysterCard::MINIMUM_AMOUNT)
     subject.touch_in
     subject.touch_out
     expect(subject).not_to be_in_journey

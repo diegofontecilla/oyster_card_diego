@@ -2,6 +2,7 @@ class OysterCard
   attr_reader :balance
 
   DEFAULT_MAX_LIMIT = 90
+  MINIMUM_AMOUNT = 1
 
   def initialize
     @balance = 0
@@ -19,6 +20,8 @@ class OysterCard
   end
 
   def touch_in
+    message = "Cannot touch in, less than #{MINIMUM_AMOUNT} pound on card"
+    fail message if @balance < MINIMUM_AMOUNT
     @in_journey = true
   end
 
