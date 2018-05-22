@@ -4,11 +4,18 @@ describe OysterCard do
 
   # it { is_expected.to respond_to(:deduct).with(1).argument }
 
+  # it { is_expected.to respond_to(:touch_in) }
+  #
+  # it { is_expected.to respond_to(:in_journey?)}
+  #
+  # it { is_expected.to respond_to(:touch_out)}
+
   it "has a balance of zero" do
     expect(subject.balance).to eq 0
   end
 
-  describe '#top_up' do
+
+  context '#top_up' do
 
     it 'tops up card' do
       subject.top_up(10)
@@ -16,17 +23,32 @@ describe OysterCard do
     end
 
     it 'limits top up' do
-      max = OysterCard::DEFAULT_MAX_LIMIT
-      subject.top_up(max)
-      message = "Failed: exceeded max balance #{max}"
+      subject.top_up(OysterCard::DEFAULT_MAX_LIMIT)
+      message = "Failed: exceeded max balance #{OysterCard::DEFAULT_MAX_LIMIT}"
       expect { subject.top_up(1) } .to raise_error message
     end
+  end
 
-    describe '#deduct' do
-      it 'amount on card' do
-        subject.top_up(30)
-        expect{ subject.deduct 3 }.to change{ subject.balance }.by -3
-      end
+  describe '#deduct' do
+
+    it 'amount on card' do
+      subject.top_up(30)
+      expect{ subject.deduct 3 }.to change{ subject.balance }.by -3
     end
+  end
+
+  it 'is initially not in a journey' do
+    expect(subject).not_to be_in_journey
+  end
+
+  it 'can touch in' do
+    subject.touch_in
+    expect(subject).to be_in_journey
+  end
+
+  it 'can touch out' do
+    subject.touch_in
+    subject.touch_out
+    expect(subject).not_to be_in_journey
   end
 end
