@@ -1,6 +1,37 @@
 {
   "RSpec": {
     "coverage": {
+      "/home/rxr/Imagemounts/senfiles_img/current_work/_on_github/oyster_card_diego/spec/journey_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        2,
+        2,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/home/rxr/Imagemounts/senfiles_img/current_work/_on_github/oyster_card_diego/lib/journey.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null,
+        null
+      ],
       "/home/rxr/Imagemounts/senfiles_img/current_work/_on_github/oyster_card_diego/spec/oyster_card_spec.rb": [
         1,
         null,
@@ -127,15 +158,13 @@
         null,
         1,
         null,
-        3,
-        null,
         1,
-        null,
+        1,
         1,
         null,
         null,
         1,
-        null,
+        1,
         1,
         null,
         null,
@@ -153,6 +182,6 @@
         null
       ]
     },
-    "timestamp": 1527090136
+    "timestamp": 1527092636
   }
 }
