@@ -2,7 +2,8 @@ require 'oyster_card'
 
 describe OysterCard do
 
-  let(:station){ double :station }
+  let(:fake_entry_station){ double :station }
+  let(:fake_exit_station){ double :station }
 
   it "has a balance of zero" do
     expect(subject.balance).to eq 0
@@ -28,33 +29,38 @@ describe OysterCard do
 
   it 'can touch in' do
     subject.top_up(OysterCard::MINIMUM_AMOUNT)
-    subject.touch_in(station)
+    subject.touch_in(fake_entry_station)
     expect(subject).to be_in_journey
   end
 
-  # let(:station){ double :station }
-
   it 'stores the entry station' do
     subject.top_up(OysterCard::MINIMUM_AMOUNT)
-    subject.touch_in(station)
-    expect(subject.entry_station).to eq station
+    subject.touch_in(fake_entry_station)
+    expect(subject.entry_station).to eq fake_entry_station
   end
 
   it 'raise error if touch in with less than minimum amount' do
     message = "Cannot touch in, less than #{OysterCard::MINIMUM_AMOUNT} pound on card"
-    expect { subject.touch_in(station) }.to raise_error message
+    expect { subject.touch_in(fake_entry_station) }.to raise_error message
   end
 
   it 'can touch out' do
     subject.top_up(OysterCard::MINIMUM_AMOUNT)
-    subject.touch_in(station)
-    subject.touch_out
+    subject.touch_in(fake_entry_station)
+    subject.touch_out(fake_exit_station)
     expect(subject).not_to be_in_journey
   end
 
   it 'charges minimum amount when touch out' do
     subject.top_up(OysterCard::MINIMUM_AMOUNT)
-    subject.touch_in(station)
-    expect{ subject.touch_out }.to change{ subject.balance }.by(-OysterCard::MINIMUM_AMOUNT)
+    subject.touch_in(fake_entry_station)
+    expect{ subject.touch_out(fake_exit_station) }.to change{ subject.balance }.by(-OysterCard::MINIMUM_AMOUNT)
+  end
+
+  it 'stores exit station' do
+    subject.top_up(OysterCard::MINIMUM_AMOUNT)
+    subject.touch_in(fake_entry_station)
+    subject.touch_out(fake_exit_station)
+    expect(subject.exit_station).to eq fake_exit_station
   end
 end

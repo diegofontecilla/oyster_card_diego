@@ -1,12 +1,11 @@
 class OysterCard
-  attr_reader :balance, :entry_station
-
+  attr_reader :balance, :entry_station, :exit_station
+  
   DEFAULT_MAX_LIMIT = 90
   MINIMUM_AMOUNT = 1
 
   def initialize
     @balance = 0
-    #@in_journey = false
   end
 
   def top_up(amount)
@@ -18,19 +17,17 @@ class OysterCard
   def touch_in(station)
     message = "Cannot touch in, less than #{MINIMUM_AMOUNT} pound on card"
     fail message if @balance < MINIMUM_AMOUNT
-    #@in_journey = true
     @entry_station = station
   end
 
   def in_journey?
-    #@in_journey
-    !!entry_station
+    !@entry_station.nil?
   end
 
-  def touch_out
+  def touch_out(station)
       deduct(MINIMUM_AMOUNT)
-      #@in_journey = false
       @entry_station = nil
+      @exit_station = station
   end
 
   private
